@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import IntegratedServices from './components/IntegratedServices';
 import Services from './components/Services';
+import Gallery from './components/Gallery';
 import About from './components/About';
 import Team from './components/Team';
 import Testimonials from './components/Testimonials';
@@ -19,6 +20,7 @@ export default function App() {
       <Features />
       <IntegratedServices />
       <Services />
+      <Gallery />
       <About />
       <Team />
       <Testimonials />

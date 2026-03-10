@@ -9,6 +9,7 @@ export default function Navbar() {
             <div className="nav-links">
                 <a href="#clinica" className="nav-link">Clínica</a>
                 <a href="#servicios" className="nav-link">Especialidades</a>
+                <a href="#galeria" className="nav-link">Galería</a>
                 <a href="#por-que-nosotros" className="nav-link">Nosotros</a>
                 <a href="#equipo" className="nav-link">Equipo</a>
                 <a href="#contacto" className="nav-link">Contacto</a>

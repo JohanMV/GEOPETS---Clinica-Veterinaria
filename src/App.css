@@ -6,9 +6,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 40px;
-  /* Thicker padding since it's at the top of the body */
-  background: transparent;
+  padding: 12px 40px;
+  /* Reducido para hacer el navbar más delgado */
+  /* Pegado a la parte superior y que no desaparezca */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
 .logo {
@@ -29,8 +36,8 @@
 }
 
 .navbar .brand-logo {
-  height: 64px;
-  /* Agrandando bastante el navbar */
+  height: 52px;
+  /* Ajustado para que no haga tan alto el navbar, manteniendo la legibilidad */
 }
 
 .nav-links {
@@ -43,10 +50,28 @@
   font-weight: 500;
   color: var(--text-body);
   transition: var(--transition);
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+  border-radius: 2px;
 }
 
 .nav-link:hover {
   color: var(--text-title);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 /* --- Hero (BloomFi Style) --- */

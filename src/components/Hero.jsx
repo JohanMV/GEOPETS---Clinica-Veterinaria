@@ -6,31 +6,35 @@ import { fadeUp, staggerContainer } from '../utils/animations';
 export default function Hero() {
     return (
         <section className="hero">
-            <motion.div initial="hidden" animate="visible" variants={staggerContainer} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <motion.div variants={fadeUp} className="hero-top-icon">
-                    <Sparkle size={28} />
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="hero-image-bg"
+            >
+                <div className="hero-overlay"></div>
+                <img src="/images/hero.png" alt="GeoPets Clinic Premium Environment" />
+            </motion.div>
+
+            <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="hero-content-wrapper">
+                <motion.div variants={fadeUp} className="hero-badge">
+                    <Sparkle size={14} />
+                    <span>Donde Nace El Bienestar</span>
                 </motion.div>
                 <motion.h1 variants={fadeUp} className="hero-title">
-                    Donde Nace El Bienestar
+                    <span className="hero-title-small">Clínica Veterinaria</span>
+                    <br />
+                    <span className="hero-brand-highlight">GEOPETS</span>
                 </motion.h1>
                 <motion.p variants={fadeUp} className="hero-subtitle">
-                    Una clínica veterinaria impulsada por tecnología y diseñada para el bienestar integral,
+                    Impulsada por tecnología y diseñada para el bienestar integral,
                     el diagnóstico preciso y la tranquilidad de tu familia.
                 </motion.p>
                 <motion.div variants={fadeUp} className="hero-buttons">
-                    <button className="btn-primary">
+                    <button className="btn-primary hero-btn-light">
                         Agenda tu Evaluación
                     </button>
                 </motion.div>
-            </motion.div>
-
-            <motion.div
-                initial={{ opacity: 0, scale: 0.98, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="hero-image-wrapper"
-            >
-                <img src="/images/hero.png" alt="GeoPets Clinic Premium Environment" />
             </motion.div>
         </section>
     );

@@ -7,8 +7,9 @@ export default function Navbar() {
                 <img src="/images/geopets_logo.webp" alt="GeoPet's" className="brand-logo" />
             </div>
             <div className="nav-links">
-                <a href="#servicios" className="nav-link">Servicios</a>
-                <a href="#por-que-nosotros" className="nav-link">Por qué elegirnos</a>
+                <a href="#clinica" className="nav-link">Clínica</a>
+                <a href="#servicios" className="nav-link">Especialidades</a>
+                <a href="#por-que-nosotros" className="nav-link">Nosotros</a>
                 <a href="#equipo" className="nav-link">Equipo</a>
                 <a href="#contacto" className="nav-link">Contacto</a>
             </div>

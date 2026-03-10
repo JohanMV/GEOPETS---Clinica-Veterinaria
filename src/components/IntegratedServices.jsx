@@ -32,8 +32,8 @@ const integratedServices = [
 
 export default function IntegratedServices() {
     return (
-        <section className="integrated-services-section">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer} className="integrated-container">
+        <section id="clinica" className="integrated-services-section">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
                 <motion.div variants={fadeUp} className="integrated-header">
                     <h2>Atención Clínica Integral</h2>
                     <p>Cobertura médica veterinaria 360° diseñada bajo los más exigentes estándares del sector.</p>

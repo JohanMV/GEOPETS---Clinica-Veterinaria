@@ -8,25 +8,25 @@ const integratedServices = [
         icon: <Stethoscope size={32} strokeWidth={1.5} />,
         title: "Consulta General",
         desc: "Evaluaciones médicas exhaustivas para garantizar el desarrollo saludable de tu mascota en cada etapa.",
-        img: "https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?w=400&auto=format&fit=crop&q=80"
+        img: "/images/consulta_general.webp"
     },
     {
         icon: <Microscope size={32} strokeWidth={1.5} />,
         title: "Análisis Clínico",
         desc: "Laboratorio in-house equipado con tecnología de precisión para diagnósticos rápidos y exactos.",
-        img: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&auto=format&fit=crop&q=80"
+        img: "/images/analisis_clinico.webp"
     },
     {
         icon: <HeartPulse size={32} strokeWidth={1.5} />,
         title: "Medicina Integral",
         desc: "Abordaje completo desde prevención hasta tratamientos curativos avanzados, enfocados en bienestar.",
-        img: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&auto=format&fit=crop&q=80"
+        img: "/images/cirugia.webp"
     },
     {
         icon: <Scissors size={32} strokeWidth={1.5} />,
         title: "Peluquería Canina",
         desc: "Spa y grooming profesional utilizando productos hipoalergénicos para cuidar la piel y el pelaje.",
-        img: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=400&auto=format&fit=crop&q=80"
+        img: "/images/gallery-photo-01.webp"
     }
 ];
 

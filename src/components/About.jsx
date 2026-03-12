@@ -4,10 +4,10 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fadeUp } from '../utils/animations';
 
 const aboutImages = [
-    "/images/about_1.png",
-    "/images/about_2.png",
-    "/images/about_3.png",
-    "/images/about_4.png"
+    "/images/about_1.webp",
+    "/images/about_2.webp",
+    "/images/about_3.webp",
+    "/images/about_4.webp"
 ];
 
 const aboutAlts = [

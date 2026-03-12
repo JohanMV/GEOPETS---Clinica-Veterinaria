@@ -1,7 +1,28 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Stethoscope, Syringe, Scissors } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';
-import { services } from '../data/constants';
+
+const services = [
+    {
+        icon: <Stethoscope size={20} />,
+        title: "Consultas Generales",
+        desc: "Diagnósticos precisos apoyados en tecnología para garantizar la salud a largo plazo.",
+        img: "/images/consultas.webp"
+    },
+    {
+        icon: <Syringe size={20} />,
+        title: "Vacunación",
+        desc: "Esquemas personalizados que fortalecen la inmunidad y previenen enfermedades complejas.",
+        img: "/images/vacunacion.webp"
+    },
+    {
+        icon: <Scissors size={20} />,
+        title: "Cirugía Especializada",
+        desc: "Quirófanos asépticos y modernos con monitoreo continuo durante todo el procedimiento.",
+        img: "/images/consulta_general.webp"
+    }
+];
 
 export default function Services() {
     return (

@@ -13,7 +13,7 @@ export default function Hero() {
                 className="hero-image-bg"
             >
                 <div className="hero-overlay"></div>
-                <img src="/images/hero.png" alt="GeoPets Clinic Premium Environment" />
+                <img src="/images/geopets_hero_2.webp" alt="GeoPets Clinic Premium Environment" />
             </motion.div>
 
             <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="hero-content-wrapper">

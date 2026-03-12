@@ -4,12 +4,12 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';
 
 const galleryImages = [
-    "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1510771463146-e89e6e86560e?auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&q=80"
+    "/images/gallery-photo-01.webp",
+    "/images/gallery-photo-02.webp",
+    "/images/gallery-photo-03.webp",
+    "/images/gallery-photo-04.webp",
+    "/images/gallery-photo-05.webp",
+    "/images/gallery-photo-06.webp"
 ];
 
 export default function Gallery() {

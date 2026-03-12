@@ -6,19 +6,19 @@ export const services = [
         icon: <Stethoscope size={20} />,
         title: "Consultas Generales",
         desc: "Diagnósticos precisos apoyados en tecnología para garantizar la salud a largo plazo.",
-        img: "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=800&auto=format&fit=crop&q=80"
+        img: "/images/consultas.webp"
     },
     {
         icon: <Syringe size={20} />,
         title: "Vacunación",
         desc: "Esquemas personalizados que fortalecen la inmunidad y previenen enfermedades complejas.",
-        img: "/images/vacunacion.png"
+        img: "/images/vacunacion.webp"
     },
     {
         icon: <Scissors size={20} />,
         title: "Cirugía Especializada",
         desc: "Quirófanos asépticos y modernos con monitoreo continuo durante todo el procedimiento.",
-        img: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&auto=format&fit=crop&q=80"
+        img: "/images/gallery-photo-02.webp"
     }
 ];
 

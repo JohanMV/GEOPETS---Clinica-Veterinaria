@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';
@@ -21,7 +21,6 @@ export default function Features() {
                 </div>
 
                 <div className="features-grid">
-                    {/* Left wide card (light) */}
                     <motion.div variants={fadeUp} className="feature-card wide" style={{ backgroundColor: '#e9f2df' }}>
                         <div>
                             <h3 style={{ color: 'var(--text-title)' }}>Salud que prospera</h3>
@@ -34,17 +33,15 @@ export default function Features() {
                         </div>
                     </motion.div>
 
-                    {/* Center dark card */}
                     <motion.div variants={fadeUp} className="feature-card dark">
                         <div>
                             <h3>Siempre atentos,<br />siempre seguros</h3>
                             <p style={{ marginTop: '24px' }}>
-                                Mantente tranquilo con acceso inmediato a los reportes clínicos de tu mascota — sin papeleos ni demoras.
+                                Mantente tranquilo con acceso inmediato a los reportes clínicos de tu mascota - sin papeleos ni demoras.
                             </p>
                         </div>
                     </motion.div>
 
-                    {/* Right dark card */}
                     <motion.div variants={fadeUp} className="feature-card dark">
                         <div>
                             <h3>100%<br />libres de estrés</h3>

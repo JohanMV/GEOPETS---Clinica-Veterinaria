@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fadeUp } from '../utils/animations';
@@ -19,8 +19,13 @@ const aboutAlts = [
 
 export default function About() {
     const [selectedIndex, setSelectedIndex] = useState(null);
+    const lastFocusedRef = useRef(null);
 
-    const openLightbox = (index) => setSelectedIndex(index);
+    const openLightbox = (index, event) => {
+        lastFocusedRef.current = event.currentTarget;
+        setSelectedIndex(index);
+    };
+
     const closeLightbox = () => setSelectedIndex(null);
 
     const showNext = (e) => {
@@ -32,6 +37,36 @@ export default function About() {
         e.stopPropagation();
         setSelectedIndex((prev) => (prev - 1 + aboutImages.length) % aboutImages.length);
     };
+
+    useEffect(() => {
+        if (selectedIndex === null && lastFocusedRef.current) {
+            lastFocusedRef.current.focus();
+        }
+    }, [selectedIndex]);
+
+    useEffect(() => {
+        if (selectedIndex === null) {
+            return undefined;
+        }
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            }
+
+            if (event.key === 'ArrowRight') {
+                setSelectedIndex((prev) => (prev + 1) % aboutImages.length);
+            }
+
+            if (event.key === 'ArrowLeft') {
+                setSelectedIndex((prev) => (prev - 1 + aboutImages.length) % aboutImages.length);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedIndex]);
 
     return (
         <section id="quienes-somos" className="about-section">
@@ -49,11 +84,18 @@ export default function About() {
                 </div>
                 <div className="about-image-grid">
                     {aboutImages.map((src, index) => (
-                        <div key={index} className="about-image-item" onClick={() => openLightbox(index)}>
-                            <img src={src} alt={aboutAlts[index]} loading="lazy" />
-                            <div className="gallery-overlay">
-                                <span>Ver Recinto</span>
-                            </div>
+                        <div key={index} className="about-image-item">
+                            <button
+                                type="button"
+                                className="about-image-button"
+                                onClick={(event) => openLightbox(index, event)}
+                                aria-label={`Abrir imagen ${index + 1} de ${aboutImages.length}`}
+                            >
+                                <img src={src} alt={aboutAlts[index]} loading="lazy" />
+                                <div className="gallery-overlay">
+                                    <span>Ver Recinto</span>
+                                </div>
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -68,12 +110,15 @@ export default function About() {
                         exit={{ opacity: 0 }}
                         className="lightbox"
                         onClick={closeLightbox}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Vista ampliada de nuestras instalaciones"
                     >
-                        <button className="lightbox-close" onClick={closeLightbox}>
+                        <button type="button" className="lightbox-close" onClick={closeLightbox} aria-label="Cerrar galería">
                             <X size={32} />
                         </button>
 
-                        <button className="lightbox-prev" onClick={showPrev}>
+                        <button type="button" className="lightbox-prev" onClick={showPrev} aria-label="Imagen anterior">
                             <ChevronLeft size={40} />
                         </button>
 
@@ -89,7 +134,7 @@ export default function About() {
                             onClick={(e) => e.stopPropagation()}
                         />
 
-                        <button className="lightbox-next" onClick={showNext}>
+                        <button type="button" className="lightbox-next" onClick={showNext} aria-label="Imagen siguiente">
                             <ChevronRight size={40} />
                         </button>
                     </motion.div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';
@@ -14,8 +14,13 @@ const galleryImages = [
 
 export default function Gallery() {
     const [selectedIndex, setSelectedIndex] = useState(null);
+    const lastFocusedRef = useRef(null);
 
-    const openLightbox = (index) => setSelectedIndex(index);
+    const openLightbox = (index, event) => {
+        lastFocusedRef.current = event.currentTarget;
+        setSelectedIndex(index);
+    };
+
     const closeLightbox = () => setSelectedIndex(null);
 
     const showNext = (e) => {
@@ -28,6 +33,36 @@ export default function Gallery() {
         setSelectedIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
     };
 
+    useEffect(() => {
+        if (selectedIndex === null && lastFocusedRef.current) {
+            lastFocusedRef.current.focus();
+        }
+    }, [selectedIndex]);
+
+    useEffect(() => {
+        if (selectedIndex === null) {
+            return undefined;
+        }
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            }
+
+            if (event.key === 'ArrowRight') {
+                setSelectedIndex((prev) => (prev + 1) % galleryImages.length);
+            }
+
+            if (event.key === 'ArrowLeft') {
+                setSelectedIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedIndex]);
+
     return (
         <section id="galeria" className="gallery-section">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer} className="container">
@@ -38,11 +73,21 @@ export default function Gallery() {
 
                 <motion.div variants={fadeUp} className="gallery-grid">
                     {galleryImages.map((src, index) => (
-                        <div key={index} className={`gallery-item ${index === 0 ? 'gallery-item-large' : ''}`} onClick={() => openLightbox(index)}>
-                            <img src={src} alt="Mascota feliz en GeoPet's" loading="lazy" />
-                            <div className="gallery-overlay">
-                                <span>Ampliar</span>
-                            </div>
+                        <div
+                            key={index}
+                            className={`gallery-item ${index === 0 ? 'gallery-item-large' : ''}`}
+                        >
+                            <button
+                                type="button"
+                                className="gallery-item-button"
+                                onClick={(event) => openLightbox(index, event)}
+                                aria-label={`Abrir imagen ${index + 1} de ${galleryImages.length}`}
+                            >
+                                <img src={src} alt="Mascota feliz en GeoPet's" loading="lazy" />
+                                <div className="gallery-overlay">
+                                    <span>Ampliar</span>
+                                </div>
+                            </button>
                         </div>
                     ))}
                 </motion.div>
@@ -57,12 +102,15 @@ export default function Gallery() {
                         exit={{ opacity: 0 }}
                         className="lightbox"
                         onClick={closeLightbox}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Vista ampliada de la galería"
                     >
-                        <button className="lightbox-close" onClick={closeLightbox}>
+                        <button type="button" className="lightbox-close" onClick={closeLightbox} aria-label="Cerrar galería">
                             <X size={32} />
                         </button>
 
-                        <button className="lightbox-prev" onClick={showPrev}>
+                        <button type="button" className="lightbox-prev" onClick={showPrev} aria-label="Imagen anterior">
                             <ChevronLeft size={40} />
                         </button>
 
@@ -78,7 +126,7 @@ export default function Gallery() {
                             onClick={(e) => e.stopPropagation()}
                         />
 
-                        <button className="lightbox-next" onClick={showNext}>
+                        <button type="button" className="lightbox-next" onClick={showNext} aria-label="Imagen siguiente">
                             <ChevronRight size={40} />
                         </button>
                     </motion.div>

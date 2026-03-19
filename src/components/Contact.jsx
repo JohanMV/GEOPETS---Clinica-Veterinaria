@@ -1,9 +1,17 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { fadeUp } from '../utils/animations';
 
 export default function Contact() {
+    const whatsappNumber = '51987654321';
+    const whatsappMessage = encodeURIComponent("Hola, quiero agendar una cita en GeoPet's.");
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+    const handleWhatsAppClick = () => {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    };
+
     return (
         <section id="contacto" className="contact-section">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp}>
@@ -27,7 +35,12 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        <button className="btn-primary" style={{ width: 'fit-content', padding: '16px 32px', marginTop: '24px' }}>
+                        <button
+                            type="button"
+                            className="btn-primary"
+                            style={{ width: 'fit-content', padding: '16px 32px', marginTop: '24px' }}
+                            onClick={handleWhatsAppClick}
+                        >
                             Contactar por WhatsApp <ArrowRight size={18} />
                         </button>
                     </div>

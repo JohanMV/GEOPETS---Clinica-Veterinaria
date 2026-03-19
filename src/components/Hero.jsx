@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkle } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';

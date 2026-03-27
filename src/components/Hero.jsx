@@ -1,9 +1,17 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkle } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';
 
 export default function Hero() {
+    const whatsappNumber = '51987654321';
+    const whatsappMessage = encodeURIComponent("Hola, quiero agendar una cita en GeoPet's.");
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+    const handleWhatsAppClick = () => {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    };
+
     return (
         <section className="hero">
             <motion.div
@@ -31,7 +39,7 @@ export default function Hero() {
                     el diagnóstico preciso y la tranquilidad de tu familia.
                 </motion.p>
                 <motion.div variants={fadeUp} className="hero-buttons">
-                    <button className="btn-primary hero-btn-light">
+                    <button className="btn-primary hero-btn-light" onClick={handleWhatsAppClick}>
                         Agenda tu Evaluación
                     </button>
                 </motion.div>

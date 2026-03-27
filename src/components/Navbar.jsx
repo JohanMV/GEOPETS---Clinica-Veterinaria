@@ -1,10 +1,18 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+
+    const whatsappNumber = '51987654321';
+    const whatsappMessage = encodeURIComponent("Hola, quiero agendar una cita en GeoPet's.");
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+    const handleWhatsAppClick = () => {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    };
 
     useEffect(() => {
         const updateIsMobile = () => {
@@ -42,7 +50,7 @@ export default function Navbar() {
             )}
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <button className="btn-primary" style={{ padding: '10px 24px', fontSize: '0.9rem' }}>
+                <button className="btn-primary" style={{ padding: '10px 24px', fontSize: '0.9rem' }} onClick={handleWhatsAppClick}>
                     Agendar Cita
                 </button>
 

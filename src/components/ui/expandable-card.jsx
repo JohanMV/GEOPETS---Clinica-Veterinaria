@@ -16,11 +16,18 @@ export function ExpandableCard({
   setActive: setControlledActive,
   onNext,
   onPrev,
+  fastTransition,
   ...props
 }) {
   const [internalActive, setInternalActive] = useState(false);
   const active = controlledActive !== undefined ? controlledActive : internalActive;
   const setActive = setControlledActive !== undefined ? setControlledActive : setInternalActive;
+  
+  const CURRENT_TRANSITION = fastTransition 
+    ? { duration: 0.15, ease: "easeInOut" } 
+    : ANIMATION_TRANSITION;
+
+  const currentLayoutId = (prefix) => fastTransition ? undefined : `${prefix}-${title}-${id}`;
   const cardRef = useRef(null);
   const id = useId();
 
@@ -110,7 +117,7 @@ export function ExpandableCard({
               </button>
             )}
             <motion.div
-              layoutId={`card-${title}-${id}`}
+              layoutId={currentLayoutId('card')}
               ref={cardRef}
               style={{
                 position: 'relative',
@@ -130,7 +137,7 @@ export function ExpandableCard({
                 margin: 0,
                 willChange: 'transform, border-radius'
               }}
-              transition={ANIMATION_TRANSITION}
+              transition={CURRENT_TRANSITION}
               {...props}
             >
               <style>{`
@@ -138,7 +145,7 @@ export function ExpandableCard({
                   display: none;
                 }
               `}</style>
-              <motion.div layoutId={`image-${title}-${id}`} transition={ANIMATION_TRANSITION} style={{ position: 'relative', height: '320px', flexShrink: 0 }}>
+              <motion.div layoutId={currentLayoutId('image')} transition={CURRENT_TRANSITION} style={{ position: 'relative', height: '320px', flexShrink: 0 }}>
                 <img
                   src={src}
                   alt={title}
@@ -149,20 +156,20 @@ export function ExpandableCard({
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 32px 16px', gap: '20px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {icon && (
-                        <motion.div layoutId={`icon-${title}-${id}`} transition={ANIMATION_TRANSITION} className="service-icon-wrap" style={{ alignSelf: 'flex-start', marginBottom: '8px' }}>
+                        <motion.div layoutId={currentLayoutId('icon')} transition={CURRENT_TRANSITION} className="service-icon-wrap" style={{ alignSelf: 'flex-start', marginBottom: '8px' }}>
                             {icon}
                         </motion.div>
                     )}
                     <motion.p
-                      layoutId={`description-${description}-${id}`}
-                      transition={ANIMATION_TRANSITION}
+                      layoutId={currentLayoutId('description')}
+                      transition={CURRENT_TRANSITION}
                       style={{ margin: 0, fontSize: '1.05rem', color: 'var(--text-body)', lineHeight: 1.5 }}
                     >
                       {description}
                     </motion.p>
                     <motion.h3
-                      layoutId={`title-${title}-${id}`}
-                      transition={ANIMATION_TRANSITION}
+                      layoutId={currentLayoutId('title')}
+                      transition={CURRENT_TRANSITION}
                       style={{ margin: 0, fontSize: '2rem', fontWeight: 600, color: 'var(--text-title)', fontFamily: 'var(--font-display)', lineHeight: 1.1 }}
                     >
                       {title}

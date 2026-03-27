@@ -48,6 +48,24 @@ const services = [
 
 export default function Services() {
     const [activeIndex, setActiveIndex] = useState(null);
+    const [isSwitching, setIsSwitching] = useState(false);
+
+    const handleSetActive = (idx) => {
+        setIsSwitching(false);
+        setActiveIndex(idx);
+    };
+
+    const handleNext = (idx) => {
+        setIsSwitching(true);
+        setActiveIndex((idx + 1) % services.length);
+        setTimeout(() => setIsSwitching(false), 200);
+    };
+
+    const handlePrev = (idx) => {
+        setIsSwitching(true);
+        setActiveIndex((idx - 1 + services.length) % services.length);
+        setTimeout(() => setIsSwitching(false), 200);
+    };
 
     return (
         <section id="servicios" className="services-section">
@@ -66,9 +84,10 @@ export default function Services() {
                                 description={service.desc}
                                 icon={service.icon}
                                 active={activeIndex === idx}
-                                setActive={(val) => setActiveIndex(val ? idx : null)}
-                                onNext={() => setActiveIndex((idx + 1) % services.length)}
-                                onPrev={() => setActiveIndex((idx - 1 + services.length) % services.length)}
+                                setActive={(val) => handleSetActive(val ? idx : null)}
+                                onNext={() => handleNext(idx)}
+                                onPrev={() => handlePrev(idx)}
+                                fastTransition={isSwitching}
                             >
                                 <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '24px' }}>
                                     <h4 style={{ color: 'var(--text-title)', marginBottom: '16px', fontSize: '1.1rem', fontFamily: 'var(--font-display)' }}>Incluye:</h4>

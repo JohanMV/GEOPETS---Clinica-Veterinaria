@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';
@@ -15,7 +15,13 @@ export default function Features() {
                             de tu mascota manteniéndose apegada a los más altos estándares.
                         </motion.p>
                         <motion.div variants={fadeUp}>
-                            <button className="btn-outline" style={{ padding: '10px 24px', fontSize: '0.9rem' }}>Conocer más</button>
+                            <button 
+                                className="btn-outline" 
+                                style={{ padding: '10px 24px', fontSize: '0.9rem' }}
+                                onClick={() => document.getElementById('quienes-somos')?.scrollIntoView({ behavior: 'smooth' })}
+                            >
+                                Conocer más
+                            </button>
                         </motion.div>
                     </div>
                 </div>

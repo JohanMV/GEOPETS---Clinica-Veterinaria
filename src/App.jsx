@@ -16,15 +16,17 @@ export default function App() {
   return (
     <div className="main-wrapper">
       <Navbar />
-      <Hero />
-      <Features />
-      <IntegratedServices />
-      <Services />
-      <Gallery />
-      <About />
-      <Team />
-      <Testimonials />
-      <Contact />
+      <main>
+        <Hero />
+        <Features />
+        <IntegratedServices />
+        <Services />
+        <Gallery />
+        <About />
+        <Team />
+        <Testimonials />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );

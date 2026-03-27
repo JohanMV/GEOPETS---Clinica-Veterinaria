@@ -119,6 +119,9 @@ export function ExpandableCard({
             <motion.div
               layoutId={currentLayoutId('card')}
               ref={cardRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={`card-title-${id}`}
               style={{
                 position: 'relative',
                 display: 'flex',
@@ -168,6 +171,7 @@ export function ExpandableCard({
                       {description}
                     </motion.p>
                     <motion.h3
+                      id={`card-title-${id}`}
                       layoutId={currentLayoutId('title')}
                       transition={CURRENT_TRANSITION}
                       style={{ margin: 0, fontSize: '2rem', fontWeight: 600, color: 'var(--text-title)', fontFamily: 'var(--font-display)', lineHeight: 1.1 }}
@@ -225,9 +229,15 @@ export function ExpandableCard({
       </AnimatePresence>
 
       <motion.div
-        role="dialog"
-        aria-labelledby={`card-title-${id}`}
-        aria-modal="true"
+        role="button"
+        tabIndex={0}
+        aria-expanded={active}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setActive(true);
+          }
+        }}
         layoutId={`card-${title}-${id}`}
         transition={ANIMATION_TRANSITION}
         onClick={() => setActive(true)}

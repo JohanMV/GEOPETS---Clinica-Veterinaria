@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Stethoscope, Syringe, Scissors } from 'lucide-react';
 import { fadeUp, staggerContainer } from '../utils/animations';
@@ -11,11 +11,11 @@ const services = [
         desc: "Diagnósticos precisos apoyados en tecnología para garantizar la salud a largo plazo.",
         img: "/images/consultas.webp",
         details: [
-            "chequeo general",
-            "diagnóstico clínico",
-            "control preventivo",
-            "desparasitación",
-            "orientación médica"
+            "Chequeo general",
+            "Diagnóstico clínico",
+            "Control preventivo",
+            "Desparasitación",
+            "Orientación médica"
         ]
     },
     {
@@ -24,11 +24,11 @@ const services = [
         desc: "Esquemas personalizados que fortalecen la inmunidad y previenen enfermedades complejas.",
         img: "/images/vacunacion.webp",
         details: [
-            "vacuna múltiple",
-            "antirrábica",
-            "destemper/moquillo",
-            "parvovirus",
-            "refuerzos anuales"
+            "Vacuna múltiple",
+            "Antirrábica",
+            "Destemper/moquillo",
+            "Parvovirus",
+            "Refuerzos anuales"
         ]
     },
     {
@@ -37,16 +37,18 @@ const services = [
         desc: "Quirófanos asépticos y modernos con monitoreo continuo durante todo el procedimiento.",
         img: "/images/consulta_general.webp",
         details: [
-            "esterilización",
-            "castración",
-            "extracción de masas",
-            "cirugía de tejidos blandos",
-            "procedimientos menores"
+            "Esterilización",
+            "Castración",
+            "Extracción de masas",
+            "Cirugía de tejidos blandos",
+            "Procedimientos menores"
         ]
     }
 ];
 
 export default function Services() {
+    const [activeIndex, setActiveIndex] = useState(null);
+
     return (
         <section id="servicios" className="services-section">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer}>
@@ -63,6 +65,10 @@ export default function Services() {
                                 src={service.img}
                                 description={service.desc}
                                 icon={service.icon}
+                                active={activeIndex === idx}
+                                setActive={(val) => setActiveIndex(val ? idx : null)}
+                                onNext={() => setActiveIndex((idx + 1) % services.length)}
+                                onPrev={() => setActiveIndex((idx - 1 + services.length) % services.length)}
                             >
                                 <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '24px' }}>
                                     <h4 style={{ color: 'var(--text-title)', marginBottom: '16px', fontSize: '1.1rem', fontFamily: 'var(--font-display)' }}>Incluye:</h4>

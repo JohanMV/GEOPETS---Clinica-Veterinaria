@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect, useId } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const ANIMATION_TRANSITION = { type: "spring", stiffness: 350, damping: 30, mass: 0.8 };
 
 export function ExpandableCard({
   title,
@@ -9,9 +12,15 @@ export function ExpandableCard({
   children,
   className,
   classNameExpanded,
+  active: controlledActive,
+  setActive: setControlledActive,
+  onNext,
+  onPrev,
   ...props
 }) {
-  const [active, setActive] = useState(false);
+  const [internalActive, setInternalActive] = useState(false);
+  const active = controlledActive !== undefined ? controlledActive : internalActive;
+  const setActive = setControlledActive !== undefined ? setControlledActive : setInternalActive;
   const cardRef = useRef(null);
   const id = useId();
 
@@ -55,9 +64,8 @@ export function ExpandableCard({
               position: 'fixed',
               top: 0, right: 0, bottom: 0, left: 0,
               zIndex: 100,
-              backgroundColor: 'rgba(255, 255, 255, 0.6)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)'
+              backgroundColor: 'rgba(255, 255, 255, 0.92)',
+              willChange: 'opacity'
             }}
           />
         )}
@@ -75,6 +83,32 @@ export function ExpandableCard({
               padding: '20px'
             }}
           >
+            {onPrev && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onPrev(); }}
+                style={{
+                  position: 'absolute', left: 'max(10px, calc(50% - 440px))', top: '50%', transform: 'translateY(-50%)',
+                  background: 'rgba(255, 255, 255, 0.9)', border: 'none', borderRadius: '50%',
+                  width: '50px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', zIndex: 110, color: '#141a12', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', pointerEvents: 'auto'
+                }}
+              >
+                <ChevronLeft size={32} />
+              </button>
+            )}
+            {onNext && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onNext(); }}
+                style={{
+                  position: 'absolute', right: 'max(10px, calc(50% - 440px))', top: '50%', transform: 'translateY(-50%)',
+                  background: 'rgba(255, 255, 255, 0.9)', border: 'none', borderRadius: '50%',
+                  width: '50px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', zIndex: 110, color: '#141a12', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', pointerEvents: 'auto'
+                }}
+              >
+                <ChevronRight size={32} />
+              </button>
+            )}
             <motion.div
               layoutId={`card-${title}-${id}`}
               ref={cardRef}
@@ -93,8 +127,10 @@ export function ExpandableCard({
                 pointerEvents: 'auto',
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
-                margin: 0
+                margin: 0,
+                willChange: 'transform, border-radius'
               }}
+              transition={ANIMATION_TRANSITION}
               {...props}
             >
               <style>{`
@@ -102,7 +138,7 @@ export function ExpandableCard({
                   display: none;
                 }
               `}</style>
-              <motion.div layoutId={`image-${title}-${id}`} style={{ position: 'relative', height: '320px', flexShrink: 0 }}>
+              <motion.div layoutId={`image-${title}-${id}`} transition={ANIMATION_TRANSITION} style={{ position: 'relative', height: '320px', flexShrink: 0 }}>
                 <img
                   src={src}
                   alt={title}
@@ -113,18 +149,20 @@ export function ExpandableCard({
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '32px 32px 16px', gap: '20px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {icon && (
-                        <motion.div layoutId={`icon-${title}-${id}`} className="service-icon-wrap" style={{ alignSelf: 'flex-start', marginBottom: '8px' }}>
+                        <motion.div layoutId={`icon-${title}-${id}`} transition={ANIMATION_TRANSITION} className="service-icon-wrap" style={{ alignSelf: 'flex-start', marginBottom: '8px' }}>
                             {icon}
                         </motion.div>
                     )}
                     <motion.p
                       layoutId={`description-${description}-${id}`}
+                      transition={ANIMATION_TRANSITION}
                       style={{ margin: 0, fontSize: '1.05rem', color: 'var(--text-body)', lineHeight: 1.5 }}
                     >
                       {description}
                     </motion.p>
                     <motion.h3
                       layoutId={`title-${title}-${id}`}
+                      transition={ANIMATION_TRANSITION}
                       style={{ margin: 0, fontSize: '2rem', fontWeight: 600, color: 'var(--text-title)', fontFamily: 'var(--font-display)', lineHeight: 1.1 }}
                     >
                       {title}
@@ -184,11 +222,12 @@ export function ExpandableCard({
         aria-labelledby={`card-title-${id}`}
         aria-modal="true"
         layoutId={`card-${title}-${id}`}
+        transition={ANIMATION_TRANSITION}
         onClick={() => setActive(true)}
         className={`service-card ${className || ''}`}
-        style={{ cursor: 'pointer', margin: 0, height: '100%', display: 'flex', flexDirection: 'column' }}
+        style={{ cursor: 'pointer', margin: 0, height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-main)', willChange: 'transform' }}
       >
-        <motion.div layoutId={`image-${title}-${id}`} className="service-image" style={{ margin: 0, flexShrink: 0 }}>
+        <motion.div layoutId={`image-${title}-${id}`} transition={ANIMATION_TRANSITION} className="service-image" style={{ margin: 0, flexShrink: 0 }}>
           <img
             src={src}
             alt={title}
@@ -199,14 +238,14 @@ export function ExpandableCard({
         
         <div className="service-content" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
             {icon && (
-                <motion.div layoutId={`icon-${title}-${id}`} className="service-icon-wrap" style={{ alignSelf: 'flex-start' }}>
+                <motion.div layoutId={`icon-${title}-${id}`} transition={ANIMATION_TRANSITION} className="service-icon-wrap" style={{ alignSelf: 'flex-start' }}>
                     {icon}
                 </motion.div>
             )}
-            <motion.h3 layoutId={`title-${title}-${id}`} style={{ margin: 0 }}>
+            <motion.h3 layoutId={`title-${title}-${id}`} transition={ANIMATION_TRANSITION} style={{ margin: 0 }}>
                 {title}
             </motion.h3>
-            <motion.p layoutId={`description-${description}-${id}`} style={{ margin: 0 }}>
+            <motion.p layoutId={`description-${description}-${id}`} transition={ANIMATION_TRANSITION} style={{ margin: 0 }}>
                 {description}
             </motion.p>
         </div>
